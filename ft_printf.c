@@ -6,34 +6,47 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:51 by jeseo             #+#    #+#             */
-/*   Updated: 2022/08/04 20:22:54 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/08/04 21:17:18 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+char	ft_ctoc(char c, char flag)
+{
+	if (flag == '%')
+		return ('%');
+	else
+		return ('c');
+}
+
+char	*ft_ptoa(void *ptr)
+{
+	size_t	casting_ptr;
+
+	casting_ptr = (size_t)ptr;
+	return (ft_htoa(casting_ptr));
+}
 
 int	converse_char(va_list ap, char c, int *count)
 {
 	char	*print_str;
 	char	print_char;
 
-	if (c == 'c')
-	{
-		print_char = va_arg(ap, int);
-		*count += write(1, &print_char, 1);
-	}
+	if (c == 'c' || c == '%')
+		print_char = ft_ctoc(va_arg(ap, char), c);
 	else if (c == 's')
-	{
-		print_str = strdup(va_arg(ap, char *));
-		*count += write(1, print_str, ft_strlen(print_str));
-		free(print_str);
-	}
+		print_str = ft_strdup(va_arg(ap, char *));
 	else if (c == 'd' || c == 'i')
-	{
 		print_str = ft_itoa(va_arg(ap, int));
-		*count += write(1, print_str, ft_strlen(print_str));
-		free(print_str);
-	}
+	else if (c == 'x' || c == 'X')
+		print_str = ft_htoa(va_arg(ap, int), c);
+	else if (c == 'p')
+		print_str = ft_ptoa(va_arg(ap, void *));
+	if (print_str == NULL)
+		return (0);
+	*count += write(1, print_str, ft_strlen(print_str));
+	free(print_str);
 	return (0);
 }
 
@@ -62,13 +75,13 @@ int main()
 {
 	char p_c = 'a';
 	char p_s[] = "hi my name is jeongyun\n";
-	int p_i = 2147483647;
+	int p_i = 0x17;
 	int	hex = 100;
 	int count;
 
-	count = ft_printf("%c%d%s", 'a', p_i, p_s);
+	count = ft_printf("%%%c%i%s", 'a', 017, p_s);
 	printf("ft: %d\n", count);
-	count = printf("%c%d%s", 'a', p_i, p_s);
+	count = printf("%%%c%d%s", 'a', 017, p_s);
 	printf("or: %d\n", count);
 	return (0);
 }
