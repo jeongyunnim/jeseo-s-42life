@@ -6,47 +6,45 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 21:03:54 by jeseo             #+#    #+#             */
-/*   Updated: 2022/08/06 16:02:23 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/08/06 19:32:15 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	fill_hex(char **ret, long long hex, size_t len)
+static void	recusive_print(unsigned long long n, int flag, int *count)
 {
-	(*ret)[0] = '0';
-	(*ret)[1] = 'x';
-	(*ret)[len + 1] = '\0';
-	while (len > 0)
+	char	c;
+	int		i;
+
+	i = 0;
+	if (n < 16)
 	{
-		if ((hex % 16) < 10)
-			(*ret)[len + 1] = (hex % 16) + '0';
+		if (n < 10)
+			c = n + '0';
+		else if (flag == 'X')
+			c = n - 10 + 'A';
 		else
-			(*ret)[len + 1] = (hex % 16) - 10 + 'a';
-		hex /= 16;
-		len--;
+			c = n - 10 + 'a';
+		*count += write(1, &c, 1);
 	}
-	return ;
+	else
+	{
+		recusive_print(n / 16, flag, count);
+		recusive_print(n % 16, flag, count);
+	}
 }
 
-char	*ft_htoa(long long hex, char flag)
+void	ft_htoa(unsigned long long n, int flag, int *count)
 {
-	size_t		len;
-	long long	temp;
-	char		*ret;
+	int	temp;
 
-	temp = hex;
-	len = 0;
-	while (temp > 0)
-	{
-		temp /= 16;
-		len++;
-	}
-	ret = (char *)malloc(sizeof(char) * len + 3);
-	if (ret == NULL)
-		return (NULL);
-	fill_hex(&ret, hex, len);
-	if (flag == 'X')
-		ft_strupper(&ret);
-	return (ret);
+	temp = *count;
+	if (flag == 'p')
+		*count += write(1, "0x", 2);
+	else
+		n = (unsigned int)n;
+	if (*count < temp)
+		return ;
+	recusive_print(n, flag, count);
 }

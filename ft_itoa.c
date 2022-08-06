@@ -6,72 +6,44 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 20:36:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/08/04 20:21:46 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/08/06 19:32:54 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*positive(int n)
+static void	recusive_print(long long n, int *count)
 {
-	int		count;
-	int		temp;
-	char	*ret;
+	char	c;
 
-	count = 0;
-	temp = n;
-	while (temp > 0)
+	if (n < 10)
 	{
-		temp /= 10;
-		count++;
+		c = n + '0';
+		*count += write(1, &c, 1);
 	}
-	if (n == 0)
-		count++;
-	ret = (char *)malloc((count + 1) * sizeof(char));
-	if (ret == NULL)
-		return (NULL);
-	ret[count] = '\0';
-	while (count > 0)
-	{
-		ret[count - 1] = n % 10 + '0';
-		n /= 10;
-		count--;
-	}
-	return (ret);
-}
-
-static char	*negetive(int n)
-{
-	int			count;
-	long long	n_long;
-	char		*ret;
-
-	count = 0;
-	n_long = (long long)n * -1;
-	while (n_long > 0)
-	{
-		n_long /= 10;
-		count++;
-	}
-	ret = (char *)malloc((count + 2) * sizeof(char));
-	if (ret == NULL)
-		return (NULL);
-	n_long = (long long)n * -1;
-	ret[count + 1] = '\0';
-	while (count > 0)
-	{
-		ret[count] = n_long % 10 + '0';
-		n_long /= 10;
-		count--;
-	}
-	ret[0] = '-';
-	return (ret);
-}
-
-char	*ft_itoa(int n)
-{
-	if (n >= 0)
-		return (positive(n));
 	else
-		return (negetive(n));
+	{
+		recusive_print(n / 10, count);
+		recusive_print(n % 10, count);
+	}
+}
+
+void	ft_itoa(long long n, int *count, int flag)
+{
+	long long	casting_n;
+	int			temp;
+
+	temp = *count;
+	if (flag == 'u')
+		casting_n = (unsigned int)n;
+	else
+		casting_n = n;
+	if (casting_n < 0)
+	{
+		*count += write(1, "-", 1);
+		casting_n *= -1;
+	}
+	if (*count < temp)
+		return ;
+	return (recusive_print(casting_n, count));
 }
