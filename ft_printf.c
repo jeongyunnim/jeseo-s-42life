@@ -6,45 +6,42 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:51 by jeseo             #+#    #+#             */
-/*   Updated: 2022/08/04 21:17:18 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/08/06 16:10:13 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	ft_ctoc(char c, char flag)
+static char	*ft_ptoa(void *ptr, int flag)
 {
-	if (flag == '%')
-		return ('%');
-	else
-		return ('c');
+	unsigned long long	casting_ptr;
+
+	casting_ptr = (unsigned long long)ptr;
+	return (ft_htoa(casting_ptr, flag));
 }
 
-char	*ft_ptoa(void *ptr)
-{
-	size_t	casting_ptr;
-
-	casting_ptr = (size_t)ptr;
-	return (ft_htoa(casting_ptr));
-}
-
-int	converse_char(va_list ap, char c, int *count)
+static int	converse_char(va_list ap, int c, int *count)
 {
 	char	*print_str;
 	char	print_char;
 
-	if (c == 'c' || c == '%')
-		print_char = ft_ctoc(va_arg(ap, char), c);
+	print_str = 0;
+	if (c == 'c')
+	{
+		print_char = va_arg(ap, int);
+		*count += write(1, &print_char, 1);
+		return (0);
+	}
 	else if (c == 's')
 		print_str = ft_strdup(va_arg(ap, char *));
 	else if (c == 'd' || c == 'i')
 		print_str = ft_itoa(va_arg(ap, int));
-	else if (c == 'x' || c == 'X')
+	else if (c == 'x' || c == 'X' || c == 'p')
 		print_str = ft_htoa(va_arg(ap, int), c);
 	else if (c == 'p')
-		print_str = ft_ptoa(va_arg(ap, void *));
+		print_str = ft_ptoa(va_arg(ap, void *), 'x');
 	if (print_str == NULL)
-		return (0);
+		return (-1);
 	*count += write(1, print_str, ft_strlen(print_str));
 	free(print_str);
 	return (0);
@@ -62,29 +59,34 @@ int	ft_printf(const char *ar, ...)
 	while (ar[i])
 	{
 		if (ar[i] != '%')
-			write(1, ar, ft_strlen(ar));
-		else if (ar[++i])
-			converse_char(ap, ar[i], &count);
+			count += write(1, ar, ft_strlen(ar));
+		else if (ar[++i] != '%')
+		{
+			if (converse_char(ap, ar[i], &count) != 0)
+				return (write(2, "-1", 2));
+		}
+		else
+			count += write(1, "%", 1);
 		i++;
 	}
 	va_end(ap);
 	return (count);
 }
 
-int main()
-{
-	char p_c = 'a';
-	char p_s[] = "hi my name is jeongyun\n";
-	int p_i = 0x17;
-	int	hex = 100;
-	int count;
+// int main()
+// {
+// 	char p_c = 'a';
+// 	char p_s[] = "hi my name is jeongyun\n";
+// 	int p_i = 0x17;
+// 	int	hex = 100;
+// 	int count;
 
-	count = ft_printf("%%%c%i%s", 'a', 017, p_s);
-	printf("ft: %d\n", count);
-	count = printf("%%%c%d%s", 'a', 017, p_s);
-	printf("or: %d\n", count);
-	return (0);
-}
+// 	count = ft_printf("%%%c%i%s%p", 'a', 017, p_s, p_s);
+// 	printf("ft: %d\n", count);
+// 	count = printf("%%%c%d%s%p", 'a', 017, p_s, p_s);
+// 	printf("or: %d\n", count);
+// 	return (0);
+// }
 
 /* 
 int vout(int max, ...);

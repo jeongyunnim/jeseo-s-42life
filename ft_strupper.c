@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strupper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 16:58:39 by jeseo             #+#    #+#             */
-/*   Updated: 2022/08/06 15:33:48 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/06 13:05:46 by jeseo             #+#    #+#             */
+/*   Updated: 2022/08/06 16:04:28 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_strdup(const char *str)
+void	ft_strupper(char **ret)
 {
-	int		i;
-	int		str_len;
-	char	*str_dup;
+	int	i;
 
 	i = 0;
-	str_len = ft_strlen(str);
-	str_dup = (char *)malloc(sizeof(char) * (str_len + 1));
-	if (str_dup == NULL)
-		return (NULL);
-	while (i < str_len)
+	while ((*ret)[i])
 	{
-		str_dup[i] = str[i];
+		if ('a' <= (*ret)[i] && (*ret)[i] <= 'z')
+			(*ret)[i] -= 32;
 		i++;
 	}
-	str_dup[i] = '\0';
-	return (str_dup);
 }

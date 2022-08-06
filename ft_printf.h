@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:08:53 by jeseo             #+#    #+#             */
-/*   Updated: 2022/08/04 20:11:47 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/08/06 16:04:20 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 # include <stdlib.h>
 
 char	*ft_itoa(int n);
+char	*ft_htoa(long long hex, char flag);
+char	*ft_strdup(const char *str);
 
 size_t	ft_strlen(const char *str);
+
+void	ft_strupper(char **ret);
 
 #endif
