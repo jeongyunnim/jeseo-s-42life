@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 13:03:17 by jeseo             #+#    #+#             */
-/*   Updated: 2022/08/06 16:27:42 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/13 20:18:33 by jeseo             #+#    #+#             */
+/*   Updated: 2022/08/06 17:05:11 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	ft_strlen(const char *str)
+void	ft_putstr(char *s, int *count)
 {
-	int	len;
-
-	len = 0;
-	while (str[len] != '\0')
-		len++;
-	return (len);
+	if (s != 0)
+		*count += write(1, s, ft_strlen(s));
+	else
+		*count += write(1, "(null)", 6);
 }

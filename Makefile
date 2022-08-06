@@ -6,7 +6,7 @@
 #    By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/04 15:08:56 by jeseo             #+#    #+#              #
-#    Updated: 2022/08/06 16:04:14 by jeseo            ###   ########.fr        #
+#    Updated: 2022/08/06 19:57:56 by jeseo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,8 @@ INC		=	ft_printf.h
 SRC		=	./ft_printf.c\
 			./ft_htoa.c\
 			./ft_itoa.c\
-			./ft_strdup.c\
 			./ft_strlen.c\
-			./ft_strupper.c\
+			./ft_putstr.c\
 
 OBJ		=	$(SRC:%.c=%.o)
 RM		=	rm -f
