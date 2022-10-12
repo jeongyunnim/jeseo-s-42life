@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/08/04 15:08:56 by jeseo             #+#    #+#              #
-#    Updated: 2022/08/06 19:57:56 by jeseo            ###   ########.fr        #
+#    Created: 2022/09/28 21:03:24 by jeseo             #+#    #+#              #
+#    Updated: 2022/09/28 21:03:24 by jeseo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,8 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 NAME	=	libftprintf.a
 INC		=	ft_printf.h
-SRC		=	./ft_printf.c\
-			./ft_htoa.c\
-			./ft_itoa.c\
-			./ft_strlen.c\
-			./ft_putstr.c\
+SRC		=	./client.c\
+			./server.c
 
 OBJ		=	$(SRC:%.c=%.o)
 RM		=	rm -f

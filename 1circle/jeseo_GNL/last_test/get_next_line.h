@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 15:08:53 by jeseo             #+#    #+#             */
-/*   Updated: 2022/08/06 19:45:14 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/22 19:19:35 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/29 13:26:25 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <stdio.h> // have to remove.
-# include <string.h> // have to remove.
-# include <stdarg.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 # include <unistd.h>
 # include <stdlib.h>
 
-void	ft_itoa(long long n, int *count, int flag);
-void	ft_htoa(unsigned long long n, int flag, int *count);
-void	ft_putstr(char *s, int *count);
+void	*ft_memset(void *bytes, int value, size_t len);
 
-int		ft_printf(const char *ar, ...);
+char	*ft_strnjoin(char **s1, char const *s2, size_t len);
+char	*ft_strndup(const char *str, int str_len);
+char	*get_next_line(int fd);
 
-size_t	ft_strlen(const char *str);
+size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size);
 
 #endif

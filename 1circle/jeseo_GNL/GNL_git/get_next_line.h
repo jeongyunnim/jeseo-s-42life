@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/13 20:18:33 by jeseo             #+#    #+#             */
-/*   Updated: 2022/08/06 17:05:11 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/22 19:19:35 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/29 13:26:25 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include <unistd.h>
+# include <stdlib.h>
 
-void	ft_putstr(char *s, int *count)
-{
-	if (s != 0)
-		*count += write(1, s, ft_strlen(s));
-	else
-		*count += write(1, "(null)", 6);
-}
+void	*ft_memset(void *bytes, int value, size_t len);
+
+char	*ft_strnjoin(char **s1, char const *s2, size_t len);
+char	*ft_strndup(const char *str, int str_len);
+char	*get_next_line(int fd);
+
+size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size);
+
+#endif
