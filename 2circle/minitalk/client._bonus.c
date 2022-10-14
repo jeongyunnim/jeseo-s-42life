@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minitalk.h"
+#include "ft_minitalk_bonus.h"
 
 t_info	g_info;
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minitalk.h"
+#include "ft_minitalk_bonus.h"
 
 t_info	g_info;
 
@@ -32,6 +32,7 @@ void	signal_handler(int signo, siginfo_t *info, void *context)
 	static char	combine_char;
 	static char	bit_cnt;
 
+	(void)context;
 	if (info->si_pid == 0)
 		return ;
 	g_info.pid = info->si_pid;

@@ -78,14 +78,14 @@ void	*ft_memset(void *ptr, int value, size_t len)
 int	main(int argc, char **argv)
 {
 	struct sigaction	sigact;
-	int					server_pid;
+	pid_t				server_pid;
 	int					error_flag;
 
 	server_pid = atoi(argv[1]);
 	error_flag = 0;
 	if (argc != 3)
 		error_flag = write(1, "ARGUMENT COUNT ERROR\n", 21);
-	else if (server_pid < 100 && 10000 <= server_pid)
+	else if (server_pid < 100 || 100000 <= server_pid)
 		error_flag = write(1, "PID ERROR\n", 10);
 	if (error_flag != 0)
 		exit(EXIT_FAILURE);

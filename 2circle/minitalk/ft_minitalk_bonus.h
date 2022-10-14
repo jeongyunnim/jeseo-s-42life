@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#ifndef FT_MINITALK_BONUS_H
+# define FT_MINITALK_BONUS_H
 
 # include <signal.h>
 # include <unistd.h>
 # include <stdlib.h>
 
 # define ERROR -1
+# define NULL 0
 
 typedef struct s_info
 {
