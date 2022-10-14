@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+# define ERROR -1
+
 typedef struct s_info
 {
 	pid_t	pid;
