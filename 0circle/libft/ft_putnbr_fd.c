@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:56 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/13 20:25:32 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/31 17:17:51 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-# define ERROR -1
-
-void	*ft_memset(void *bytes, int value, size_t len);
-int		ft_atoi(const char *str);
-
-typedef struct s_info
+static void	print_nbr(long long n, int fd)
 {
-	pid_t	pid;
-	int		pid_flag;
-	int		grt_flag;
-}				t_info;
+	char	c;
 
-#endif
+	if (n < 10)
+	{
+		c = n + '0';
+		write(fd, &c, 1);
+	}
+	else
+	{
+		print_nbr(n / 10, fd);
+		print_nbr(n % 10, fd);
+	}
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	long long	l_n;
+
+	l_n = (long long)n;
+	if (l_n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		l_n *= -1;
+	}
+	print_nbr(l_n, fd);
+}

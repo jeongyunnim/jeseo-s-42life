@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:56 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/16 14:18:31 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/17 21:41:44 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-# define ERROR -1
-
-void	*ft_memset(void *bytes, int value, size_t len);
-int		ft_atoi(const char *str);
-
-typedef struct s_info
+int	ft_lstsize(t_list *lst)
 {
-	pid_t	pid;
-	int		pid_flag;
-	int		grt_flag;
-}				t_info;
+	t_list	*temp;
+	int		i;
 
-#endif
+	i = 0;
+	if (!lst)
+		return (0);
+	temp = lst;
+	while (temp)
+	{
+		temp = temp -> next;
+		i++;
+	}
+	return (i);
+}

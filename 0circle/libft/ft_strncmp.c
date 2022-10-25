@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:56 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/06 14:25:13 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/19 12:39:33 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-# define ERROR -1
-
-void	*ft_memset(void *bytes, int value, size_t len);
-int		ft_atoi(const char *str);
-
-typedef struct s_info
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-	pid_t	pid;
-	int		pid_flag;
-	int		grt_flag;
-}				t_info;
+	size_t	i;
 
-#endif
+	i = 0;
+	while (i < n)
+	{
+		if (str1[i] != str2[i])
+		{
+			return ((unsigned char)str1[i] - (unsigned char)str2[i]);
+		}
+		if (str1[i] == '\0')
+			return (0);
+		i++;
+	}
+	return (0);
+}

@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:56 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/16 18:10:37 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/20 14:43:05 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-# define ERROR -1
-
-void	*ft_memset(void *bytes, int value, size_t len);
-int		ft_atoi(const char *str);
-
-typedef struct s_info
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	pid_t	pid;
-	int		pid_flag;
-	int		grt_flag;
-}				t_info;
+	t_list	*head;
+	t_list	*new_node;
 
-#endif
+	head = NULL;
+	new_node = NULL;
+	while (lst)
+	{
+		new_node = ft_lstnew(f(lst -> content));
+		if (!new_node)
+		{
+			ft_lstclear(&head, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&head, new_node);
+		lst = lst -> next;
+	}
+	return (head);
+}

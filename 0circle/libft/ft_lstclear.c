@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:56 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/16 17:48:18 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/17 21:16:39 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-# define ERROR -1
-
-void	*ft_memset(void *bytes, int value, size_t len);
-int		ft_atoi(const char *str);
-
-typedef struct s_info
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	pid_t	pid;
-	int		pid_flag;
-	int		grt_flag;
-}				t_info;
+	t_list	*temp1;
+	t_list	*temp2;
 
-#endif
+	if (lst == NULL || del == NULL)
+		return ;
+	temp1 = *lst;
+	while (temp1)
+	{
+		temp2 = temp1 -> next;
+		del(temp1 -> content);
+		free(temp1);
+		temp1 = temp2;
+	}
+	*lst = NULL;
+}

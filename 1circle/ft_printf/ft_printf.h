@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:56 by jeseo            ###   ########.fr       */
+/*   Created: 2022/08/04 15:08:53 by jeseo             #+#    #+#             */
+/*   Updated: 2022/08/08 15:22:08 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
-
-# include <signal.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
+# include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
 
-# define ERROR -1
+void	ft_itoa(long long n, int *count, int flag);
+void	ft_htoa(unsigned long long n, int flag, int *count);
+void	ft_putstr(char *s, int *count);
 
-void	*ft_memset(void *bytes, int value, size_t len);
-int		ft_atoi(const char *str);
+int		ft_printf(const char *ar, ...);
 
-typedef struct s_info
-{
-	pid_t	pid;
-	int		pid_flag;
-	int		grt_flag;
-}				t_info;
+size_t	ft_strlen(const char *str);
 
 #endif

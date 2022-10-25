@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:56 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/09 16:58:39 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/13 21:32:19 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-# define ERROR -1
-
-void	*ft_memset(void *bytes, int value, size_t len);
-int		ft_atoi(const char *str);
-
-typedef struct s_info
+char	*ft_strdup(const char *str)
 {
-	pid_t	pid;
-	int		pid_flag;
-	int		grt_flag;
-}				t_info;
+	int		i;
+	int		str_len;
+	char	*str_dup;
 
-#endif
+	i = 0;
+	str_len = ft_strlen(str);
+	str_dup = (char *)malloc(sizeof(char) * (str_len + 1));
+	if (str_dup == NULL)
+		return (NULL);
+	while (i < str_len)
+	{
+		str_dup[i] = str[i];
+		i++;
+	}
+	str_dup[i] = '\0';
+	return (str_dup);
+}

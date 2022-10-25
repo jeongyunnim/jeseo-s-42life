@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_minitalk_bonus.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/12 17:10:44 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/10/19 19:03:22 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 # include <stdlib.h>
 
 # define ERROR -1
-# define NULL 0
+
+void	*ft_memset(void *bytes, int value, size_t len);
+int		ft_atoi(const char *str);
+void	print_pid(pid_t pid);
 
 typedef struct s_info
 {

@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:56 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/13 14:45:19 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/13 21:32:34 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-# define ERROR -1
-
-void	*ft_memset(void *bytes, int value, size_t len);
-int		ft_atoi(const char *str);
-
-typedef struct s_info
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	pid_t	pid;
-	int		pid_flag;
-	int		grt_flag;
-}				t_info;
+	size_t		i;
+	char		*ret;
 
-#endif
+	i = 0;
+	if (s == 0)
+		return (NULL);
+	ret = (char *)ft_calloc(ft_strlen(s) + 1, sizeof(char));
+	if (ret == NULL)
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		ret[i] = f(i, s[i]);
+		i++;
+	}
+	return (ret);
+}

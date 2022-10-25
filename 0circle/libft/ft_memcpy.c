@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minitalk.h                                      :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/11 19:33:13 by jeseo             #+#    #+#             */
-/*   Updated: 2022/10/18 16:55:56 by jeseo            ###   ########.fr       */
+/*   Created: 2022/07/08 13:08:31 by jeseo             #+#    #+#             */
+/*   Updated: 2022/07/21 14:22:03 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINITALK_H
-# define FT_MINITALK_H
+#include "libft.h"
 
-# include <signal.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-# define ERROR -1
-
-void	*ft_memset(void *bytes, int value, size_t len);
-int		ft_atoi(const char *str);
-
-typedef struct s_info
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	pid_t	pid;
-	int		pid_flag;
-	int		grt_flag;
-}				t_info;
+	size_t			i;
+	unsigned char	*c_dest;
+	unsigned char	*c_src;
 
-#endif
+	c_dest = (unsigned char *)dest;
+	c_src = (unsigned char *)src;
+	i = 0;
+	if (dest == 0 && src == 0)
+		return (0);
+	while (i < n)
+	{
+		c_dest[i] = c_src[i];
+		i++;
+	}
+	return (dest);
+}
