@@ -6,22 +6,49 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/02 18:29:52 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/02 21:21:06 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
-#include <fcntl.h>
-#include <unistd.h>
+#include "so_long.h"
 
 void	esc_event(void *mlx_ptr, void *win_ptr)
 {
 	mlx_destroy_window(mlx_ptr, win_ptr);
 }
 
-int	check_map(void)
+int	draw_map(void)
 {
-	open("./map/map", );
+	t_flags	flags;
+	int		fd;
+	int		map_size;
+	char	*map;
+
+	fd = open("./map/map", O_RDONLY);
+	map_size = 0;
+	map = 0;
+	memset(flags, 0, sizeof(memset));
+	if (fd > 0)
+	{
+		while (flags == 1)
+		{
+			map = get_next_line(fd);
+			if (*map == 1)
+			// 모서리가 모두 벽인지.
+			// 1인 사각형은 제외 2인 사각형은..?
+			// 요소가 적절하게 다 들어있는지
+			// 그리기도 바로 여기서??
+			map++;
+		}
+		//free 하기 전에 map line이 null이면 
+	}
+	else
+	{
+		close(fd);
+		return (-1);
+	}
+	close(fd);
+	return (0);
 }
 
 int	main(void)
