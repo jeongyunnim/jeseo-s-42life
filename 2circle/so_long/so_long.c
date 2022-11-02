@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/02 21:41:12 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/02 21:55:44 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	draw_map(void)
 			map = get_next_line(fd);
 			if (map)
 			{
-				if (flags.map_size)
+				if (flags.map_size == 0 && )
 					
 			}
 			// 모서리가 모두 벽인지.
