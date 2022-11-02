@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:48:24 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/02 21:18:10 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/02 21:53:47 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <stdlib.h>
 # define BUFFER_SIZE 100
 
+# define WALL_FLAG	0x01 // 0000 0001
+# define HERO_FLAG	0x02 // 0000 0010
+# define COLL_FLAG	0x04 // 0000 0100
+# define END_FLAG	0x08 // 0000 1000
+# define OPP_FLAG	0x10 // 0001 0000
+
 void	*ft_memset(void *bytes, int value, size_t len);
 
 char	*ft_strnjoin(char **s1, char const *s2, size_t len);
@@ -26,12 +32,9 @@ char	*get_next_line(int fd);
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size);
 
-typedef struct s_flags
+typedef struct s_flagss
 {
 	int		map_size;
-	char	wall_flag;
-	char	hero_flag;
-	char	coll_flag;
+	char	flag;
 }				t_flags;
-
 #endif

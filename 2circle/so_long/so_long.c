@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/02 21:21:06 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/02 21:41:12 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,21 @@ int	draw_map(void)
 {
 	t_flags	flags;
 	int		fd;
-	int		map_size;
 	char	*map;
 
 	fd = open("./map/map", O_RDONLY);
-	map_size = 0;
-	map = 0;
-	memset(flags, 0, sizeof(memset));
+	memset(flags, 0, sizeof(flags));
+	map = NULL;
 	if (fd > 0)
 	{
-		while (flags == 1)
+		while (1)
 		{
 			map = get_next_line(fd);
-			if (*map == 1)
+			if (map)
+			{
+				if (flags.map_size)
+					
+			}
 			// 모서리가 모두 벽인지.
 			// 1인 사각형은 제외 2인 사각형은..?
 			// 요소가 적절하게 다 들어있는지
