@@ -17,39 +17,39 @@ void	esc_event(void *mlx_ptr, void *win_ptr)
 	mlx_destroy_window(mlx_ptr, win_ptr);
 }
 
-int	draw_map(void)
+int	check_map(void *mlx_ptr, void *win_ptr)
 {
 	t_flags	flags;
-	int		fd;
 	char	*map;
 
-	fd = open("./map/map", O_RDONLY);
 	memset(flags, 0, sizeof(flags));
 	map = NULL;
-	if (fd > 0)
+	while (1)
 	{
-		while (1)
+		map = get_next_line(fd);
+		if (map)
 		{
-			map = get_next_line(fd);
-			if (map)
+			if ((flags.map_size == 0) && (flags.flag & END_FLAG))
 			{
-				if (flags.map_size == 0 && )
-					
+				//check all components are wall(1)
 			}
-			// 모서리가 모두 벽인지.
-			// 1인 사각형은 제외 2인 사각형은..?
-			// 요소가 적절하게 다 들어있는지
-			// 그리기도 바로 여기서??
-			map++;
+			else
+			{
+				//check side components are wall(1)
+				//check hero, collectable things, escape, and enemy
+				//check line length
+			}
 		}
+		else
+		// length가 1인 사각형은 제외 length가 2인 사각형은 고민
 		//free 하기 전에 map line이 null이면 
-	}
-	else
-	{
+		{
+			close(fd);
+			return (-1);
+		}
+		map++;
 		close(fd);
-		return (-1);
 	}
-	close(fd);
 	return (0);
 }
 
@@ -57,9 +57,12 @@ int	main(void)
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		fd;
+
+	fd = open("./map/map", O_RDONLY);
 
 	mlx_ptr = mlx_init();
-	mlx_new_window(mlx_ptr, 1000, 1000, "test");
+	win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "test"); // how to estimate window's length? '1' length?
 	mlx_loop(mlx_ptr);
 	check_map(mlx_ptr, win_ptr);
 	return (0);

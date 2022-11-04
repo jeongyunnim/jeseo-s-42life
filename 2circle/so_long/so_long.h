@@ -21,8 +21,9 @@
 # define WALL_FLAG	0x01 // 0000 0001
 # define HERO_FLAG	0x02 // 0000 0010
 # define COLL_FLAG	0x04 // 0000 0100
-# define END_FLAG	0x08 // 0000 1000
-# define OPP_FLAG	0x10 // 0001 0000
+# define ESCP_FLAG	0x08 // 0000 1000
+# define END_FLAG	0x10 // 0001 0000
+# define ENE_FLAG	0x20 // 0010 0000
 
 void	*ft_memset(void *bytes, int value, size_t len);
 
@@ -35,6 +36,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size);
 typedef struct s_flagss
 {
 	int		map_size;
+	int		line_len;
 	char	flag;
 }				t_flags;
 #endif
