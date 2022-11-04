@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:48:24 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/04 18:09:57 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/04 19:22:09 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdio.h>
 
 # define BUFFER_SIZE	100
 # define ERROR			-1
@@ -37,7 +38,6 @@ typedef struct s_flagss
 void	*ft_memset(void *bytes, int value, size_t len);
 
 char	*ft_strnjoin(char **s1, char const *s2, size_t len);
-char	*ft_strndup(const char *str, int str_len);
 char	*get_next_line(int fd);
 
 int		check_line(char *map, t_flags *flags);

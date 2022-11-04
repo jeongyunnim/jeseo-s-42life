@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:49:09 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/02 20:55:15 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/04 19:16:31 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,6 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size)
 	if (dest_size > 0)
 		dest[i] = '\0';
 	return (0);
-}
-
-char	*ft_strndup(const char *str, int str_len)
-{
-	int		i;
-	char	*str_dup;
-
-	i = 0;
-	str_dup = (char *)malloc(sizeof(char) * (str_len + 1));
-	if (str_dup == NULL)
-		return (NULL);
-	while (i < str_len)
-	{
-		str_dup[i] = str[i];
-		i++;
-	}
-	str_dup[i] = '\0';
-	return (str_dup);
 }
 
 char	*ft_strnjoin(char **s1, char const *s2, size_t len)
