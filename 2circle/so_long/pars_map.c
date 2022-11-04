@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:13:10 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/04 17:56:49 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/04 18:09:09 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_line(char *map, t_flags *flags)
 				(*flags).flag |= HERO_FLAG;
 			else 
 			{
-				wirte(2, "COMPONENTS ERROR\n", 17);
+				write(2, "COMPONENTS ERROR\n", 17);
 				return (ERROR);
 			}
 		}
@@ -56,7 +56,7 @@ int	check_line(char *map, t_flags *flags)
 	return (1);
 }
 
-int	check_components(int flag)
+int	check_components(int flag, int len)
 {
 	if (WALL_FLAG & flag || !(COLL_FLAG & flag) || \
 		!(EXIT_FLAG & flag) || (HERO_FLAG & flag))
@@ -64,4 +64,10 @@ int	check_components(int flag)
 		write(2, "COMPONENTS ERROR\n", 17);
 		return (-1);
 	}
+	if (len < 3)
+	{
+		write(2, "TOO SHORT LINE LENGTH\n", 22);
+		return (-1);
+	}
+	return (0);
 }
