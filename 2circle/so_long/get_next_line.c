@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:18:09 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/02 20:55:19 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/04 17:07:14 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			flag;
 
-	line = NULL;
 	flag = 0;
+	line = NULL;
 	while (1)
 	{
 		ft_memset(buff, 0, BUFFER_SIZE + 1);

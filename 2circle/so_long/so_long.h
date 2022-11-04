@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:48:24 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/02 21:53:47 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/04 16:55:28 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# define BUFFER_SIZE 100
+
+# define BUFFER_SIZE	100
+# define ERROR			-1
 
 # define WALL_FLAG	0x01 // 0000 0001
 # define HERO_FLAG	0x02 // 0000 0010
 # define COLL_FLAG	0x04 // 0000 0100
-# define ESCP_FLAG	0x08 // 0000 1000
+# define EXIT_FLAG	0x08 // 0000 1000
 # define END_FLAG	0x10 // 0001 0000
 # define ENE_FLAG	0x20 // 0010 0000
 
@@ -39,4 +41,5 @@ typedef struct s_flagss
 	int		line_len;
 	char	flag;
 }				t_flags;
+
 #endif
