@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:18:09 by jeseo             #+#    #+#             */
-/*   Updated: 2022/07/29 14:06:37 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 15:21:34 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static char	*ret_line(char *dest, char *src, char *save, int *flag)
 	else if (src[len] == '\0' && len < BUFFER_SIZE && !*save)
 		*flag = 1;
 	line = ft_strnjoin(&dest, src, len);
+	if (line == NULL)
+		return (NULL);
 	save_buff(&save, src + len, len);
 	return (line);
 }
@@ -47,8 +49,8 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			flag;
 
-	line = 0;
 	flag = 0;
+	line = NULL;
 	while (1)
 	{
 		ft_memset(buff, 0, BUFFER_SIZE + 1);

@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:13:10 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/04 21:28:26 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 15:26:14 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@ int	check_line(char *map, t_flags *flags)
 	int			i;
 
 	i = 0;
-	if (!(END_FLAG & (*flags).flag))
+	if (!(END_FLAG & (*flags).flag)) // 끝나지 않았을 때. 체크하고 할당.
 	{
 		while (map[i] != '\0')
 		{
-			printf("%c", map[i]);
-			if ((i == 0) && (i == (*flags).line_len - 2))
+			if ((i == 0) || (i == (*flags).line_len - 2))
 			{
 				if (map[i] != 1)
+				{
 					(*flags).flag |= WALL_FLAG;
+				}
 			}
 			if (map[i] == 'C')
 				(*flags).flag |= COLL_FLAG;
@@ -40,22 +41,23 @@ int	check_line(char *map, t_flags *flags)
 		if (save == NULL)
 			return (ERROR);
 	}
-	if (((*flags).map_size == 1) || ((END_FLAG & (*flags).flag)))
+	if (((*flags).map_size == 0) || ((END_FLAG & (*flags).flag)))
 	{
+		i = 0;
 		while (save != NULL && save[i] != '\0' && save[i] != '\n')
 		{
 			if (save[i] != '1')
 				(*flags).flag |= WALL_FLAG;
 			i++;
 		}
-		(*flags).line_len = i;
+		(*flags).line_len = i + 1;
 		if ((END_FLAG & (*flags).flag))
 		{
 			free(save);
 			save = NULL;
 		}
 	}
-	if (!((*flags).map_size == 0) && (*flags).line_len != i)
+	else if (!((*flags).map_size == 0) && (*flags).line_len != i)
 	{
 		printf("line: %d\ni: %d\n",(*flags).line_len, i);
 		write(2, "LINE LENGTH ERROR\n", 18);
@@ -82,12 +84,12 @@ int	check_components(int flag, int len)
 	{
 		print_binary(flag);
 		write(2, "COMPONENTS ERROR\n", 17);
-		return (-1);
+		return (ERROR);
 	}
 	if (len < 3)
 	{
-		write(2, "TOO SHORT LINE LENGTH\n", 22);
-		return (-1);
+		write(2, "LINE TOO SHORT\n", 15);
+		return (ERROR);
 	}
 	return (0);
 }

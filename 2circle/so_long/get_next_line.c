@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:18:09 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/04 17:07:14 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 14:55:30 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,19 @@ char	*get_next_line(int fd)
 	{
 		ft_memset(buff, 0, BUFFER_SIZE + 1);
 		if (*save != 0)
+		{
 			line = ret_line(line, save, save, &flag);
+			if (line == NULL)
+				return (NULL);
+		}
 		else if (read(fd, buff, BUFFER_SIZE) <= 0)
 			break ;
 		else
+		{
 			line = ret_line(line, buff, save, &flag);
+			if (line == NULL)
+				return (NULL);
+		}
 		if (flag == 1)
 			return (line);
 	}

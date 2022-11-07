@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 20:49:09 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/04 19:16:31 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 15:22:27 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*ft_strnjoin(char **s1, char const *s2, size_t len)
 {
 	size_t	s1_len;
 	char	*res;
+	static int i;
 
 	s1_len = 0;
 	while (*s1 && (*s1)[s1_len])

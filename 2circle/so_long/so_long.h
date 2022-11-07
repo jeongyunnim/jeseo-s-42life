@@ -6,13 +6,13 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:48:24 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/04 19:22:09 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 13:48:35 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-// # include "./mlx/mlx.h"
+# include "./mlx/mlx.h"
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>

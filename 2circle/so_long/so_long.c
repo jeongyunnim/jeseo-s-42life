@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/04 20:31:50 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 15:23:09 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	check_map(int fd)
 	t_flags	flags;
 	char	*map_line;
 	char	*map;
+	int i = 0;
 
 	memset(&flags, 0, sizeof(flags));
 	map_line = NULL;
@@ -34,6 +35,7 @@ int	check_map(int fd)
 			if (check_line(map_line, &flags) == ERROR)
 				return (ERROR);
 			map = ft_strnjoin(&map, map_line, flags.line_len - 1);
+			printf("%d: %s\n", i++, map);
 			if (map == NULL)
 				return (ERROR);
 		}
