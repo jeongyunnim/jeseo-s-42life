@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:13:10 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/07 21:31:18 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 21:36:20 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ int	check_components(int flag, int len)
 		return (ERROR);
 	}
 	return (0);
+}
+
+int	find_route(char *map, char **table, int flag)
+{
+	//if (맨 끝에 도달하거나, flag가 모두 켜지면.)
+	//else if (재미있게.. 놀아)
 }
 
 int make_node_table(char *map, int x, int y)
