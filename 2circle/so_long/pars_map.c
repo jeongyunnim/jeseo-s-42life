@@ -18,26 +18,15 @@ int	check_line(char *map, t_flags *flags)
 	int			i;
 
 	i = 0;
-	if (((*flags).map_size == 1) || ((END_FLAG & (*flags).flag)))
-	{
-		while (map != NULL && map[i] != '\0' && map[i] != '\n')
-		{
-			if (map[i] != 1)
-				(*flags).flag |= WALL_FLAG; write(1, "wall on1\n", 9);
-			i++;
-		}
-		(*flags).line_len = i;
-		free(save);
-		save = NULL;
-	}
-	else
+	if (!(END_FLAG & (*flags).flag))
 	{
 		while (map[i] != '\0')
 		{
+			printf("%c", map[i]);
 			if ((i == 0) && (i == (*flags).line_len - 2))
 			{
 				if (map[i] != 1)
-					(*flags).flag |= WALL_FLAG; write(1, "wall on2\n", 9);
+					(*flags).flag |= WALL_FLAG;
 			}
 			if (map[i] == 'C')
 				(*flags).flag |= COLL_FLAG;
@@ -48,22 +37,50 @@ int	check_line(char *map, t_flags *flags)
 			i++;
 		}
 		save = strdup(map);
+		if (save == NULL)
+			return (ERROR);
+	}
+	if (((*flags).map_size == 1) || ((END_FLAG & (*flags).flag)))
+	{
+		while (save != NULL && save[i] != '\0' && save[i] != '\n')
+		{
+			if (save[i] != '1')
+				(*flags).flag |= WALL_FLAG;
+			i++;
+		}
+		(*flags).line_len = i;
+		if ((END_FLAG & (*flags).flag))
+		{
+			free(save);
+			save = NULL;
+		}
 	}
 	if (!((*flags).map_size == 0) && (*flags).line_len != i)
 	{
-		printf("a: %d\nb: %d\n",(*flags).line_len, i);
+		printf("line: %d\ni: %d\n",(*flags).line_len, i);
 		write(2, "LINE LENGTH ERROR\n", 18);
 		return (ERROR);
 	}
 	return (1);
 }
 
+void	print_binary(int n)
+{
+	if (n < 2)
+		printf("%d", n % 2);
+	else
+	{
+		print_binary(n / 2);
+		print_binary(n % 2);
+	}
+}
+
 int	check_components(int flag, int len)
 {
 	if (WALL_FLAG & flag || !(COLL_FLAG & flag) || \
-		!(EXIT_FLAG & flag) || (HERO_FLAG & flag))
+		!(EXIT_FLAG & flag) || !(HERO_FLAG & flag))
 	{
-		printf("%d\n", flag);
+		print_binary(flag);
 		write(2, "COMPONENTS ERROR\n", 17);
 		return (-1);
 	}

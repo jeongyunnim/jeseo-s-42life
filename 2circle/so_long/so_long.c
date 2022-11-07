@@ -12,10 +12,10 @@
 
 #include "so_long.h"
 
-void	esc_event(void *mlx_ptr, void *win_ptr)
-{
-	mlx_destroy_window(mlx_ptr, win_ptr);
-}
+// void	esc_event(void *mlx_ptr, void *win_ptr)
+// {
+// 	mlx_destroy_window(mlx_ptr, win_ptr);
+// }
 
 int	check_map(int fd)
 {
@@ -29,10 +29,12 @@ int	check_map(int fd)
 	while (!(END_FLAG & flags.flag))
 	{
 		map_line = get_next_line(fd);
-		printf("%s", map_line);
 		if (map_line && *map_line)
 		{
 			if (check_line(map_line, &flags) == ERROR)
+				return (ERROR);
+			map = ft_strnjoin(&map, map_line, flags.line_len - 1);
+			if (map == NULL)
 				return (ERROR);
 		}
 		else
@@ -43,13 +45,11 @@ int	check_map(int fd)
 			if (check_components(flags.flag, flags.line_len) == ERROR)
 				return (ERROR);
 		}
-		map = ft_strnjoin(&map, map_line, flags.line_len - 1);
-		if (map == NULL)
-			return (ERROR);
 		free(map_line);
 		map_line = NULL;
 		flags.map_size++;
 	}
+	printf("%s", map);
 	return (0);
 }
 //length가 1인 사각형은 제외 length가 2인 사각형은 고민
