@@ -6,65 +6,11 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:13:10 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/07 15:26:14 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 21:31:18 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	check_line(char *map, t_flags *flags)
-{
-	static char	*save;
-	int			i;
-
-	i = 0;
-	if (!(END_FLAG & (*flags).flag)) // 끝나지 않았을 때. 체크하고 할당.
-	{
-		while (map[i] != '\0')
-		{
-			if ((i == 0) || (i == (*flags).line_len - 2))
-			{
-				if (map[i] != 1)
-				{
-					(*flags).flag |= WALL_FLAG;
-				}
-			}
-			if (map[i] == 'C')
-				(*flags).flag |= COLL_FLAG;
-			else if (map[i] == 'E')
-				(*flags).flag |= EXIT_FLAG;
-			else if (map[i] == 'P')
-				(*flags).flag |= HERO_FLAG;
-			i++;
-		}
-		save = strdup(map);
-		if (save == NULL)
-			return (ERROR);
-	}
-	if (((*flags).map_size == 0) || ((END_FLAG & (*flags).flag)))
-	{
-		i = 0;
-		while (save != NULL && save[i] != '\0' && save[i] != '\n')
-		{
-			if (save[i] != '1')
-				(*flags).flag |= WALL_FLAG;
-			i++;
-		}
-		(*flags).line_len = i + 1;
-		if ((END_FLAG & (*flags).flag))
-		{
-			free(save);
-			save = NULL;
-		}
-	}
-	else if (!((*flags).map_size == 0) && (*flags).line_len != i)
-	{
-		printf("line: %d\ni: %d\n",(*flags).line_len, i);
-		write(2, "LINE LENGTH ERROR\n", 18);
-		return (ERROR);
-	}
-	return (1);
-}
 
 void	print_binary(int n)
 {
@@ -75,6 +21,67 @@ void	print_binary(int n)
 		print_binary(n / 2);
 		print_binary(n % 2);
 	}
+}
+
+int	check_line(char *map, t_flags *flags)
+{
+	static char	*save;
+	int			i;
+
+	i = 0;
+	if (!(END_FLAG & (*flags).flag)) // 끝나지 않았을 때. 체크하고 할당.
+	{
+		while (map[i] != '\0' && map[i] != '\n')
+		{
+			if ((i == 0) || (i == (*flags).line_len - 1))
+			{
+				if (map[i] != '1')
+					(*flags).flag |= WALL_FLAG;
+			}
+			if (map[i] == 'C')
+			{
+				(*flags).flag |= COLL_FLAG;
+				(*flags).coll_cnt++;
+			}
+			else if (map[i] == 'E' && !(EXIT_FLAG & (*flags).flag))
+				(*flags).flag |= EXIT_FLAG;
+			else if (map[i] == 'P' && !(HERO_FLAG & (*flags).flag))
+				(*flags).flag |= HERO_FLAG;
+			else if (map[i] != '1' && map[i] != '0')
+			{
+				printf("WRONG COMPONENT:%c\n", map[i]);
+				write(2, "FOUND WRONG COMPONENT\n", 22);
+				return (ERROR);
+			}
+			i++;
+		}
+		save = strdup(map);
+		if (save == NULL)
+			return (ERROR);
+	}
+	if (((*flags).map_height == 0) || ((END_FLAG & (*flags).flag)))
+	{
+		i = 0;
+		while (save != NULL && save[i] != '\0' && save[i] != '\n')
+		{
+			if (save[i] != '1')
+				(*flags).flag |= WALL_FLAG;
+			i++;
+		}
+		(*flags).line_len = i;
+		if ((END_FLAG & (*flags).flag))
+		{
+			free(save);
+			save = NULL;
+		}
+	}
+	else if (!((*flags).map_height == 0) && (*flags).line_len != i)
+	{
+		printf("line: %d\ni: %d\n",(*flags).line_len, i);
+		write(2, "LINE LENGTH ERROR\n", 18);
+		return (ERROR);
+	}
+	return (1);
 }
 
 int	check_components(int flag, int len)
@@ -91,5 +98,15 @@ int	check_components(int flag, int len)
 		write(2, "LINE TOO SHORT\n", 15);
 		return (ERROR);
 	}
+	return (0);
+}
+
+int make_node_table(char *map, int x, int y)
+{
+	char	node_table[x][y];
+	int		flag;
+
+	flag == 1;
+	find_route(map, node_table, &flag);
 	return (0);
 }

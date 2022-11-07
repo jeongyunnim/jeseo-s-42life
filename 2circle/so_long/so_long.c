@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/07 15:23:09 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 21:31:18 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int	check_map(int fd)
 		{
 			if (check_line(map_line, &flags) == ERROR)
 				return (ERROR);
-			map = ft_strnjoin(&map, map_line, flags.line_len - 1);
-			printf("%d: %s\n", i++, map);
+			map = ft_strnjoin(&map, map_line, flags.line_len);
 			if (map == NULL)
 				return (ERROR);
 		}
@@ -49,12 +48,20 @@ int	check_map(int fd)
 		}
 		free(map_line);
 		map_line = NULL;
-		flags.map_size++;
+		flags.map_height++;
 	}
-	printf("%s", map);
+	i = 0;
+	printf("line_lne: %d\n", flags.line_len);
+	while (map[i])
+	{
+		printf("%c", map[i]);
+		if (i % flags.line_len == flags.line_len - 1)
+			printf("\n");
+		i++;
+	}
+	make_node_table(map, flags.line_len, flags.map_height);
 	return (0);
 }
-//length가 1인 사각형은 제외 length가 2인 사각형은 고민
 
 int	main(void)
 {

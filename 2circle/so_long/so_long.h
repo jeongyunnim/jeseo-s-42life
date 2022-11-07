@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:48:24 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/07 13:48:35 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/07 20:36:43 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define BUFFER_SIZE	100
 # define ERROR			-1
 
+/*변화를 알 때 효율적*/
 # define WALL_FLAG	0x01 // 0000 0001
 # define HERO_FLAG	0x02 // 0000 0010
 # define COLL_FLAG	0x04 // 0000 0100
@@ -30,8 +31,9 @@
 
 typedef struct s_flagss
 {
-	int		map_size;
+	int		map_height;
 	int		line_len;
+	int		coll_cnt;
 	char	flag;
 }				t_flags;
 
