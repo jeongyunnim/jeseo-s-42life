@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:13:10 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/07 21:36:20 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/08 18:16:23 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,41 @@ int	check_components(int flag, int len)
 	return (0);
 }
 
-int	find_route(char *map, char **table, int flag)
-{
-	//if (맨 끝에 도달하거나, flag가 모두 켜지면.)
-	//else if (재미있게.. 놀아)
-}
+//int	find_route(char *map, char **table, int flag)
+//{
+//	//if (맨 끝에 도달하거나, flag가 모두 켜지면.)
+//	//else if (재미있게.. 놀아)
+//}
 
 int make_node_table(char *map, int x, int y)
 {
 	char	node_table[x][y];
+	int		i;
+	int		j;
 	int		flag;
 
-	flag == 1;
-	find_route(map, node_table, &flag);
+	i = -1;
+	flag = 1;
+	memset(&node_table, 0, sizeof(node_table));
+	printf("x: %d, y:%d\n", x, y);
+	printf("=====================\n");
+	while (++i < y)
+	{
+		j = -1;
+		while (++j < x)
+		{
+			if (map[(i * x)+(j % y)])
+				node_table[i][j] = map[(i * x)+(j % y)];
+			printf("(%d, %d)", i, j);	
+			//else if ()
+		}
+		printf("%s\n", node_table[i]);
+	}
+	//while (*map != '\0')
+	//{
+		
+	//	if (map[i] != )
+	//}
+	//find_route(map, node_table, &flag);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/07 21:31:18 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/08 18:14:24 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_map(int fd)
 			printf("\n");
 		i++;
 	}
-	make_node_table(map, flags.line_len, flags.map_height);
+	make_node_table(map, flags.line_len, flags.map_height - 1);
 	return (0);
 }
 
@@ -69,6 +69,7 @@ int	main(void)
 	void	*win_ptr;
 	int		fd;
 
+	//argc, argv 보자.
 	fd = open("./map/map.txt", O_RDONLY);
 	if (fd < 0)
 		exit(EXIT_FAILURE);

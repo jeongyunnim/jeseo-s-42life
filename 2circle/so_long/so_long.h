@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:48:24 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/07 20:36:43 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/08 17:38:41 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*get_next_line(int fd);
 
 int		check_line(char *map, t_flags *flags);
 int		check_components(int flag, int len);
+int 	make_node_table(char *map, int x, int y);
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size);
 
