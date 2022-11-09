@@ -51,7 +51,7 @@ int	check_map(int fd)
 		flags.map_height++;
 	}
 	i = 0;
-	printf("line_lne: %d\n", flags.line_len);
+	printf("line_line: %d\n", flags.line_len);
 	while (map[i])
 	{
 		printf("%c", map[i]);
@@ -59,7 +59,8 @@ int	check_map(int fd)
 			printf("\n");
 		i++;
 	}
-	make_node_table(map, flags.line_len, flags.map_height - 1);
+	if (find_route(map, flags.coll_cnt) == 0)
+		return (ERROR);
 	return (0);
 }
 
@@ -76,7 +77,11 @@ int	main(void)
 	//mlx_ptr = mlx_init();
 	//win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "test");// how to estimate window's length? '1' length?
 	//mlx_loop(mlx_ptr);
-	check_map(fd);
+	if (check_map(fd) == ERROR)
+	{
+		close(fd);
+		return (write(2, "IT CAN'T BE SOLVED\n", 19));//perror?
+	}
 	close(fd); //close 왜 해줘??
 	return (0);
 }

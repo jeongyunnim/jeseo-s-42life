@@ -101,41 +101,35 @@ int	check_components(int flag, int len)
 	return (0);
 }
 
-//int	find_route(char *map, char **table, int flag)
-//{
-//	//if (맨 끝에 도달하거나, flag가 모두 켜지면.)
-//	//else if (재미있게.. 놀아)
-//}
-
-int make_node_table(char *map, int x, int y)
+int	find_route(char *map, int collectable, char side_flag)
 {
-	char	node_table[x][y];
-	int		i;
-	int		j;
-	int		flag;
-
-	i = -1;
-	flag = 1;
-	memset(&node_table, 0, sizeof(node_table));
-	printf("x: %d, y:%d\n", x, y);
-	printf("=====================\n");
-	while (++i < y)
+	if (collectable == -1) // escape까지 포함하기 때문에 -1.
 	{
-		j = -1;
-		while (++j < x)
-		{
-			if (map[(i * x)+(j % y)])
-				node_table[i][j] = map[(i * x)+(j % y)];
-			printf("(%d, %d)", i, j);	
-			//else if ()
-		}
-		printf("%s\n", node_table[i]);
+		write(1, "YOU CAN SOLVE! TRY! TRY!\n", 24);
+		return (1);
 	}
-	//while (*map != '\0')
-	//{
-		
-	//	if (map[i] != )
-	//}
-	//find_route(map, node_table, &flag);
+	/*
+	다녀온 곳은 진행할 수 없도록 2로 바꾸어주면서 C와 E를 먹어본다.
+	현재 위치에서 이동할 수 없는 구간, x 또는 y를 기준으로 삼아서 체크한다.
+	재귀를 4번 호출하는 형식으로 하는 것이 맞을까?
+	더 이상 전진할 수 없는 구간을 어떻게 판단하지?
+	
+	if (side_flag == DOWN)
+		//맵의 인덱스 + width
+	if (side_flag == RIGHT)
+		//맵의 인덱스 + 1
+	if (side_flag == UP)
+		//맵의 인덱스 - width
+	if (side_flag == LEFT)
+		//맵의 인덱스 - 1
+	*/
+	else // 모든 곳을 다 돌았다는 플래그는 어떻게 확인할까? 더이상 진행할 수 없을 때.
+	{
+		find_route(map, collectable, DOWN);
+		find_route(map, collectable, RIGHT);
+		find_route(map, collectable, UP);
+		find_route(map, collectable, LEFT);
+		return (0);
+	}
 	return (0);
 }
