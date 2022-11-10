@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:13:10 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/08 18:16:23 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/10 16:10:44 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	check_line(char *map, t_flags *flags)
 			else if (map[i] == 'E' && !(EXIT_FLAG & (*flags).flag))
 				(*flags).flag |= EXIT_FLAG;
 			else if (map[i] == 'P' && !(HERO_FLAG & (*flags).flag))
+			{
+				(*flags).p = i + (*flags).map_height * (*flags).line_len;
 				(*flags).flag |= HERO_FLAG;
+			}
 			else if (map[i] != '1' && map[i] != '0')
 			{
 				printf("WRONG COMPONENT:%c\n", map[i]);
@@ -101,35 +104,44 @@ int	check_components(int flag, int len)
 	return (0);
 }
 
-int	find_route(char *map, int collectable, char side_flag)
+void	find_route(char *map, int current, int *collectable, int width)
 {
-	if (collectable == -1) // escape까지 포함하기 때문에 -1.
+	static int	coll_flag;
+	int	i;
+
+	i = 0;
+	printf("===============================\n");
+	while (map[i])
 	{
-		write(1, "YOU CAN SOLVE! TRY! TRY!\n", 24);
-		return (1);
+		printf("%c", map[i]);
+		if (i % width == width - 1)
+			printf("\n");
+		i++;
 	}
-	/*
-	다녀온 곳은 진행할 수 없도록 2로 바꾸어주면서 C와 E를 먹어본다.
-	현재 위치에서 이동할 수 없는 구간, x 또는 y를 기준으로 삼아서 체크한다.
-	재귀를 4번 호출하는 형식으로 하는 것이 맞을까?
-	더 이상 전진할 수 없는 구간을 어떻게 판단하지?
-	
-	if (side_flag == DOWN)
-		//맵의 인덱스 + width
-	if (side_flag == RIGHT)
-		//맵의 인덱스 + 1
-	if (side_flag == UP)
-		//맵의 인덱스 - width
-	if (side_flag == LEFT)
-		//맵의 인덱스 - 1
-	*/
-	else // 모든 곳을 다 돌았다는 플래그는 어떻게 확인할까? 더이상 진행할 수 없을 때.
+	if (map[current] == 'P')
 	{
-		find_route(map, collectable, DOWN);
-		find_route(map, collectable, RIGHT);
-		find_route(map, collectable, UP);
-		find_route(map, collectable, LEFT);
-		return (0);
+		printf("P: %d\n", current);
+		printf("coll_flag: %d, collectable: %d\n", coll_flag, *collectable);
+		coll_flag = *collectable + 1;
 	}
-	return (0);
+	else if (map[current] == 'C' || map[current] == 'E')
+		coll_flag--;
+	if (coll_flag == 0) // escape까지 포함하기 때문에 -1.
+	{
+		*collectable = 0;
+		return ;
+	}
+	else if (map[current] != '@' && map[current] != '1' && coll_flag != 0)
+	{
+		map[current] = '@';
+		printf("moved down v\n");
+		find_route(map, current + width, collectable, width);
+		printf("moved right >\n");
+		find_route(map, current + 1, collectable, width);
+		printf("moved up ^\n");
+		find_route(map, current - width, collectable, width);
+		printf("moved left <\n");
+		find_route(map, current - 1, collectable, width);
+		map[current] = '0';
+	}
 }

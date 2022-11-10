@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:48:24 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/08 17:38:41 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/10 16:00:06 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,12 @@
 # define EXIT_FLAG	0x08 // 0000 1000
 # define END_FLAG	0x10 // 0001 0000
 
-# define DOWN		1
-# define RIGHT		2
-# define UP			3
-# define LEFT		4
-
 typedef struct s_flagss
 {
 	int		map_height;
 	int		line_len;
 	int		coll_cnt;
+	int		p;
 	char	flag;
 }				t_flags;
 
@@ -49,7 +45,7 @@ char	*get_next_line(int fd);
 
 int		check_line(char *map, t_flags *flags);
 int		check_components(int flag, int len);
-int		find_route(char *map, int collectable, char side_flag);
+void	find_route(char *map, int current, int *collectable, int width);
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size);
 

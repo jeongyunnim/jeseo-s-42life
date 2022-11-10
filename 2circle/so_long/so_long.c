@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/08 18:14:24 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/10 16:10:28 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ int	check_map(int fd)
 			printf("\n");
 		i++;
 	}
-	if (find_route(map, flags.coll_cnt) == 0)
-		return (ERROR);
+	find_route(map, flags.p, &flags.coll_cnt, flags.line_len);
+	if (flags.coll_cnt != 0)
+		write(1, "IT CAN'T BE SOLVED\n", 19);
+	else
+		write(1, "YOU CAN SOLVE! TRY! TRY!\n", 24);
 	return (0);
 }
 
@@ -82,6 +85,7 @@ int	main(void)
 		close(fd);
 		return (write(2, "IT CAN'T BE SOLVED\n", 19));//perror?
 	}
+
 	close(fd); //close 왜 해줘??
 	return (0);
 }
