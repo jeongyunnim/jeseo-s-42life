@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:13:10 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/10 16:10:44 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/10 16:13:47 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,6 @@ void	find_route(char *map, int current, int *collectable, int width)
 		find_route(map, current - width, collectable, width);
 		printf("moved left <\n");
 		find_route(map, current - 1, collectable, width);
-		map[current] = '0';
+		//map[current] = '0';
 	}
 }

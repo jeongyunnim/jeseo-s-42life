@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/10 16:10:28 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/10 16:28:36 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,17 @@ int	check_map(int fd)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	int		fd;
 
-	//argc, argv 보자.
-	fd = open("./map/map.txt", O_RDONLY);
+	if (argc != 2)
+		return (write(2, "ERROR\n", 6));
+	//if (argv[1] != "*.ber")
+	//	return (write(2, "ERROR\n", 6));
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		exit(EXIT_FAILURE);
 	//mlx_ptr = mlx_init();
