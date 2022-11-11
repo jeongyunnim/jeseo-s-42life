@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/10 16:28:36 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/11 21:06:33 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,27 @@ int	check_map(int fd)
 	return (0);
 }
 
+int	open_and_draw(void *mlx_ptr)
+{
+	void	*win_ptr;
+	void	*img_ptr;
+	int		width;
+	int		height;
+	int 	i;
+
+	i = 0;	
+	//width = 1000;
+	//height = 1000;
+	img_ptr = mlx_xpm_file_to_image(mlx_ptr, "./source/tile.xpm", &width, &height);
+	win_ptr = mlx_new_window(mlx_ptr, width * 10, height * 10, "test");
+	mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, width * i, 0 + i);
+	// how to estimate window's length? '1' length?
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	void	*mlx_ptr;
-	void	*win_ptr;
 	int		fd;
 
 	if (argc != 2)
@@ -80,15 +97,14 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		exit(EXIT_FAILURE);
-	//mlx_ptr = mlx_init();
-	//win_ptr = mlx_new_window(mlx_ptr, 1000, 1000, "test");// how to estimate window's length? '1' length?
-	//mlx_loop(mlx_ptr);
 	if (check_map(fd) == ERROR)
 	{
 		close(fd);
-		return (write(2, "IT CAN'T BE SOLVED\n", 19));//perror?
+		return (write(2, "ERORR\nIT CAN'T BE SOLVED\n", 25));//perror?
 	}
-
 	close(fd); //close 왜 해줘??
+	mlx_ptr = mlx_init();
+	open_and_draw(mlx_ptr);
+	mlx_loop(mlx_ptr);
 	return (0);
 }

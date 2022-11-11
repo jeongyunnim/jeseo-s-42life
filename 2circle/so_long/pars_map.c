@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:13:10 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/10 16:13:47 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/11 20:50:04 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	check_line(char *map, t_flags *flags)
 			save = NULL;
 		}
 	}
-	else if (!((*flags).map_height == 0) && (*flags).line_len != i)
+	else if (!((*flags).map_height == 0) && (*flags).line_len != i && (*flags).map_height == 1)
 	{
 		printf("line: %d\ni: %d\n",(*flags).line_len, i);
 		write(2, "LINE LENGTH ERROR\n", 18);
