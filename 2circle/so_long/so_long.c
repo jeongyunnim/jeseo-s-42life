@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 19:09:59 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/11 21:06:33 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/12 16:20:39 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_map(int fd)
 	t_flags	flags;
 	char	*map_line;
 	char	*map;
-	int i = 0;
+	int 	i;
 
 	memset(&flags, 0, sizeof(flags));
 	map_line = NULL;
@@ -61,33 +61,68 @@ int	check_map(int fd)
 	}
 	find_route(map, flags.p, &flags.coll_cnt, flags.line_len);
 	if (flags.coll_cnt != 0)
+	{
 		write(1, "IT CAN'T BE SOLVED\n", 19);
+		return (ERROR);
+	}
 	else
+	{
 		write(1, "YOU CAN SOLVE! TRY! TRY!\n", 24);
+		if (open_and_draw(map, flags) == ERROR)
+			return (ERROR);
+	}
 	return (0);
 }
 
-int	open_and_draw(void *mlx_ptr)
+void	initialize_map(void *mlx_ptr, void* win_ptr, t_flags flag)
 {
-	void	*win_ptr;
 	void	*img_ptr;
 	int		width;
 	int		height;
-	int 	i;
+	int		i;
+	int		j;
 
-	i = 0;	
-	//width = 1000;
-	//height = 1000;
+	i = -1;
 	img_ptr = mlx_xpm_file_to_image(mlx_ptr, "./source/tile.xpm", &width, &height);
-	win_ptr = mlx_new_window(mlx_ptr, width * 10, height * 10, "test");
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, width * i, 0 + i);
+	while (++i < flag.map_height)
+	{
+		j = -1;
+		while (++j < flag.line_len)
+			mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, width * j, height * i);
+	}
+}
+
+int	open_and_draw(char *map, t_flags flag)
+{
+	t_image	wall;
+	t_image	coll;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	int		i;
+
+	i = -1;
+	mlx_ptr = mlx_init();
+	win_ptr = mlx_new_window(mlx_ptr, flag.line_len * 32, (flag.map_height - 1) * 32, "test");
+	initialize_map(mlx_ptr, win_ptr, flag);
+	wall.img_ptr = mlx_xpm_file_to_image(mlx_ptr, "./source/wall.xpm", &wall.width, &wall.height);
+	coll.img_ptr = mlx_xpm_file_to_image(mlx_ptr, "./source/coll.xpm", &coll.width, &coll.height);
+	printf("%s\n", map);
+	while (map[++i] != '\0')
+	{
+		if (map[i] == '1')
+			mlx_put_image_to_window(mlx_ptr, win_ptr, wall.img_ptr, (i % flag.line_len) * 32, (i / flag.line_len) * 32);
+		else if (map[i] == 'C')
+			mlx_put_image_to_window(mlx_ptr, win_ptr, coll.img_ptr, (i % flag.line_len) * 32, (i / flag.line_len) * 32);
+		//printf("x: %d, y: %d\n", (i % flag.line_len) * 32, (i / flag.line_len) * 32);
+		//mlx_string_put(mlx_ptr, win_ptr, (i % flag.line_len) * 32, (i / flag.line_len) * 32, 0x48385E, "WALL");
+	}
+	mlx_loop(mlx_ptr);
 	// how to estimate window's length? '1' length?
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
-	void	*mlx_ptr;
 	int		fd;
 
 	if (argc != 2)
@@ -103,8 +138,5 @@ int	main(int argc, char **argv)
 		return (write(2, "ERORR\nIT CAN'T BE SOLVED\n", 25));//perror?
 	}
 	close(fd); //close 왜 해줘??
-	mlx_ptr = mlx_init();
-	open_and_draw(mlx_ptr);
-	mlx_loop(mlx_ptr);
 	return (0);
 }

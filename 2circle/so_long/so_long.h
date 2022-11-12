@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 20:48:24 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/11 20:25:35 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/12 16:20:39 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ typedef struct s_flagss
 	char	flag;
 }				t_flags;
 
+typedef struct s_image
+{
+	void	*img_ptr;
+	int		width;
+	int		height;
+}				t_image;
+
 void	*ft_memset(void *bytes, int value, size_t len);
 
 char	*ft_strnjoin(char **s1, char const *s2, size_t len);
@@ -45,6 +52,7 @@ char	*get_next_line(int fd);
 
 int		check_line(char *map, t_flags *flags);
 int		check_components(int flag, int len);
+int		open_and_draw(char *map, t_flags flag);
 void	find_route(char *map, int current, int *collectable, int width);
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size);

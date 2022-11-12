@@ -6,7 +6,7 @@
 /*   By: jeseo <jeseo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 15:13:10 by jeseo             #+#    #+#             */
-/*   Updated: 2022/11/11 20:50:04 by jeseo            ###   ########.fr       */
+/*   Updated: 2022/11/12 16:06:37 by jeseo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	check_line(char *map, t_flags *flags)
 		if (save == NULL)
 			return (ERROR);
 	}
+	printf("map_H: %d\n", (*flags).map_height);
 	if (((*flags).map_height == 0) || ((END_FLAG & (*flags).flag)))
 	{
 		i = 0;
@@ -111,13 +112,13 @@ void	find_route(char *map, int current, int *collectable, int width)
 
 	i = 0;
 	printf("===============================\n");
-	while (map[i])
-	{
-		printf("%c", map[i]);
-		if (i % width == width - 1)
-			printf("\n");
-		i++;
-	}
+	//while (map[i])
+	//{
+	//	printf("%c", map[i]);
+	//	if (i % width == width - 1)
+	//		printf("\n");
+	//	i++;
+	//}
 	if (map[current] == 'P')
 	{
 		printf("P: %d\n", current);
